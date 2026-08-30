@@ -24,13 +24,12 @@ public class ElytraWeeeClient implements ClientModInitializer {
     }
 
     private void onEndClientTick(Minecraft client) {
-        // Drain keybind presses first so any state they set is honoured by the tick below.
         while (KeyBindings.fastSwap.consumeClick()) {
             handler.fastSwap(client);
         }
         while (KeyBindings.openConfig.consumeClick()) {
             if (client.player != null) {
-                client.gui.setScreen(ConfigScreenBuilder.build(client.gui.screen()));
+                client.setScreen(ConfigScreenBuilder.build(client.screen));
             }
         }
         while (KeyBindings.toggleEnabled.consumeClick()) {
@@ -45,8 +44,8 @@ public class ElytraWeeeClient implements ClientModInitializer {
         cfg.enabled = !cfg.enabled;
         cfg.save();
         if (client.player != null) {
-            client.player.sendOverlayMessage(
-                    Component.literal("ElytraWEEE: " + (cfg.enabled ? "§aEnabled" : "§cDisabled")));
+            client.player.displayClientMessage(
+                    Component.literal("ElytraWEEE: " + (cfg.enabled ? "§aEnabled" : "§cDisabled")), true);
         }
     }
 }

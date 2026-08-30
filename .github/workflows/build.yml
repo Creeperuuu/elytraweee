@@ -1,5 +1,5 @@
 name: build
-on: [push, pull_request]
+on: [push, pull_request, workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -8,9 +8,11 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: "25"
-      - run: chmod +x gradlew && ./gradlew build --no-daemon
+          java-version: "21"
+          cache: gradle
+      - run: chmod +x gradlew && ./gradlew build --no-daemon --refresh-dependencies
       - uses: actions/upload-artifact@v4
         with:
           name: jars
           path: build/libs/*.jar
+          if-no-files-found: error

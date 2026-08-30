@@ -8,7 +8,7 @@ import net.minecraft.network.protocol.game.ServerboundPlayerCommandPacket;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerInput;
+import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.equipment.Equippable;
@@ -245,11 +245,11 @@ public class ElytraSwapHandler {
     }
 
     private void pickup(Minecraft client, Player player, int containerId, int slot) {
-        client.gameMode.handleContainerInput(containerId, slot, 0, ContainerInput.PICKUP, player);
+        client.gameMode.handleInventoryMouseClick(containerId, slot, 0, ClickType.PICKUP, player);
     }
 
     private void quickMove(Minecraft client, Player player, int containerId, int slot) {
-        client.gameMode.handleContainerInput(containerId, slot, 0, ContainerInput.QUICK_MOVE, player);
+        client.gameMode.handleInventoryMouseClick(containerId, slot, 0, ClickType.QUICK_MOVE, player);
     }
 
     private void reset() {
